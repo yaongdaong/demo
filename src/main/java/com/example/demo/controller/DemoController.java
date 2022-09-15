@@ -26,7 +26,7 @@ public class DemoController {
 
 
         @RequestMapping(value = { "/{boardId}/", "/{boardId}" }, method = RequestMethod.GET )
-        public String articleList(@PathVariable String boardId, Model model){
+        public String boardList(@PathVariable String boardId, Model model){
             List<Demo> articleList = demoRepository.findAll();
             model.addAttribute(articleList);
             String list = "list";
@@ -34,7 +34,7 @@ public class DemoController {
         }
 
         @RequestMapping(value = { "/{boardId}/", "/{boardId}" }, method = RequestMethod.POST )
-        public String articleSave(Demo demo){
+        public String boardSave(Demo demo){
             demoRepository.save(demo);
             return "redirect:/{boardId}";
         }
