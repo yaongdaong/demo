@@ -26,11 +26,12 @@ public class DemoController {
 
 
         @RequestMapping(value = { "/{boardId}/", "/{boardId}" }, method = RequestMethod.GET )
-        public String boardList(@PathVariable String boardId, Model model){
+        public String articleList(@PathVariable String title, Model model){
+            System.out.println("1111111111111111");
             List<Demo> articleList = demoRepository.findAll();
-            model.addAttribute(articleList);
-            String list = "list";
-            return list; 
+            System.out.println(articleList);
+            model.addAttribute("articleList",articleList);
+            return "list";
         }
 
         @RequestMapping(value = { "/{boardId}/", "/{boardId}" }, method = RequestMethod.POST )
