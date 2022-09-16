@@ -8,5 +8,5 @@ import java.util.List;
 
 
 public interface DemoRepository extends MongoRepository<Demo, BigInteger> {
-    List<Demo> findByContent(String Content);
+    List<Demo> findByTitle(String Title);
 }
