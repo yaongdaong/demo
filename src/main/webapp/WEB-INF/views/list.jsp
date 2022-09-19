@@ -29,10 +29,10 @@
     </thead>
     <tbody>
     <tr>
-        <th scope="row">${article.no}</th>
-        <td>${article.title}</td>
-        <td>${article.content}</td>
-        <td>${article.writeDate}</td>
+        <th scope="row">${list.no}</th>
+        <td>${list.title}</td>
+        <td>${list.content}</td>
+        <td>${list.writeDate}</td>
 <%--    </tr>--%>
 <%--    <tr>--%>
 <%--        <th scope="row">2</th>--%>
@@ -78,13 +78,18 @@
             data: {list:list},
             success: function(data) {
                 console.log(data);
-                if(data == "성공")
-                    alert('성공');
+                if(data != 0){
+                    for(i=0; i<list.length; i++){
+                        var tag ="<tr>"+
+                            "<td>"+i+1+"</td>"+
+                            "<td>"+list[i].title+"</td>"+
+                            "<td>"+list[i].content+"</td>"+
+                            "<td>"+list[i].writeDate+"</td>"+
+                            "</td>"
+                    }
+                }
             }
         });
-    }
-
-
 
 <%--공부--%>
     function a() {
