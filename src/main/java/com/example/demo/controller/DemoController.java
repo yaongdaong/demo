@@ -14,8 +14,12 @@ public class DemoController {
 
     @GetMapping("/")
     public String demo() {
-
         return "demo";
+    }
+
+    @GetMapping("/write")
+    public String write() {
+        return "write";
     }
 //
 //    @Autowired
