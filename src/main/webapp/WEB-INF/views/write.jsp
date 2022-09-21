@@ -20,7 +20,7 @@
 <%--제목--%>
 <div class="mb-3">
     <label for="formTitle" class="form-label">제목</label>
-    <input type="email" class="form-control" id="formTitle" placeholder="제목을 입력하세요">
+    <input type="email" class="form-control" name="title" id="formTitle" placeholder="제목을 입력하세요">
 </div>
 <%--내용--%>
 <div class="mb-3">
@@ -28,7 +28,7 @@
     <textarea class="form-control" id="formContent" rows="3"></textarea>
 </div>
 <%--입력--%>
-    <button type="submit" onclick="writeForm()" class="btn btn-primary">글쓰기</button>
+    <button type="submit" onclick="writeForm()" class="btn btn-primary"><a href="list">글쓰기</a></button>
 </div>
 
 <%--<form method="post">--%>

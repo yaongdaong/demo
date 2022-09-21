@@ -10,19 +10,22 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
-@Controller
+@Controller  // 컨트롤러 bean
 public class BoardController {
 
     @Autowired
     DemoRepository demoRepository;
 
     // 등록
+    // url과 method 매핑
     @RequestMapping(value = {"/{boardId}/", "/{boardId}"}, method = RequestMethod.GET)
     public String articleList(Model model) {
-        System.out.println("1111111111111111");
+        System.out.println("ddd1111111111111111");
         List<Demo> articleList = demoRepository.findAll();
 //        System.out.println(articleList);
+        // attributeName 괄호 내용에서 데이터넘어감
         model.addAttribute("articleList", articleList);
+        // list.jsp로 포워드
         return "list";
     }
 
@@ -35,6 +38,8 @@ public class BoardController {
 
     // ajax로 등록하기
     @RequestMapping(value = {"/create"}, method = RequestMethod.POST)
+    // @RequestParam 개별변수
+    // @ModelAttribute 객체
     @ResponseBody
     public String Create(@RequestParam(value = "list") List<String> list) {
         System.out.println("222222222");
@@ -52,16 +57,17 @@ public class BoardController {
         demoRepository.save(demo);
 
 
-        return "성공";
+        return "redirect:/list";
     }
 
-    @RequestMapping(value = {"/read"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/read"}, method = RequestMethod.POST)
     @ResponseBody
     public String Read(@RequestParam(value = "list") List<String> list) {
+        System.out.println("read " );
         List<Demo> read = demoRepository.findAll();
         String b = "성공";
-        System.out.println(read);
-        return "list";
+
+        return "redirect:/list";
     }
     // 목록
 

@@ -17,6 +17,7 @@
 <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 
 <body>
+<c:forEach items="${boardList}" var="list">
 <table class="table">
     <thead>
     <tr>
@@ -29,10 +30,10 @@
     </thead>
     <tbody>
     <tr>
-        <th scope="row">${list.no}</th>
-        <td>${list.title}</td>
-        <td>${list.content}</td>
-        <td>${list.writeDate}</td>
+        <th scope="row">${boardList.no}</th>
+        <td>${boardList.title}</td>
+        <td>${boardList.content}</td>
+        <td>${boardList.writeDate}</td>
 <%--    </tr>--%>
 <%--    <tr>--%>
 <%--        <th scope="row">2</th>--%>
@@ -47,6 +48,7 @@
 <%--    </tr>--%>
     </tbody>
 </table>
+</c:forEach>
 <hr/>
 <%--데이터입력받기--%>
 
@@ -62,35 +64,37 @@
     <a href="${path}/borad/detail?no=${list.id}>${list.title}"></a>
 </c:forEach>
 <input type="button" value="선택삭제" clas="btn btn-outline-info" onclick="deleteValue();">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <%--ajax로 입력받기--%>
 <script>
+    $(document).ready(function (){
+        read();
+    });
 <%--데이터 뿌리기--%>
-    function read(data){
-        var a = document.getElementById('formTitle').value;
-        var content = document.getElementById('formContent').value;
-        var list = [a, content];
-        console.log(list)
+    function read() {
+        console.log(1111111111111);
         $.ajax({
             type: "POST",
             url: "read",
             traditional: true,
             dataType: 'text',
-            data: {list:list},
-            success: function(data) {
+            success: function (data) {
                 console.log(data);
-                if(data != 0){
-                    for(i=0; i<list.length; i++){
-                        var tag ="<tr>"+
-                            "<td>"+i+1+"</td>"+
-                            "<td>"+list[i].title+"</td>"+
-                            "<td>"+list[i].content+"</td>"+
-                            "<td>"+list[i].writeDate+"</td>"+
+                if (data != 0) {
+                    for (i = 0; i < list.length; i++) {
+                        var tag = "<tr>" +
+                            "<td>" + i + 1 + "</td>" +
+                            "<td>" + list[i].title + "</td>" +
+                            "<td>" + list[i].content + "</td>" +
+                            "<td>" + list[i].writeDate + "</td>" +
                             "</td>"
+                        $("#login_log_tb").append(tag);
                     }
                 }
+
             }
         });
-
+    }
 <%--공부--%>
     function a() {
         var a = document.getElementById('title').value;
@@ -110,57 +114,57 @@
 
 <%--선택삭제--%>
 <script type="text/javascript">
-    $(function() {
-        var chkObj = document.getElementById("RowCheck");
-        var rowCnt = chkObj.length;
-
-        $("input[name='allCheck']").click(function() {
-            var chk_listArr = $("input[name='RowCheck']");
-            for (var i = 0; i < chk_listArr.length; i++) {
-                chk_listArr[i].checked = this.checked;
-            }
-        });
-        $("input[name='RowCheck]").click(function () {
-            if ($("input[name='RowCheck']:checked").length == rowCnt) {
-                $("input[name='allCheck']")[0].checked = true;
-            } else {
-                $("input[name='allCheck']")[0].checked = false;
-            }
-        });
-    });
-
-    function deleteValue() {
-        var url = "delete";
-        var valueArr = new Array();
-        var list = $("input[name='RowCheck']");
-        for (var i = 0; i < list.length; i++) {
-            if (list[i].checked) {
-                valueArr.push(list[i].value);
-            }
-        }
-        if (valueArr.length == 0) {
-            alert("선택된 글이 없습니다.");
-        } else {
-            var chk = confirm("정말 삭제하시겠습니까?");
-            $.ajax({
-                url: url,
-                type: 'POST',
-                traditional: true,
-                data: {
-                    valueArr: valueArr
-                },
-                success: function (jdata) {
-                    if (jdata == 1) {
-                        alert("삭제 성공");
-                        location.replace("list")
-                    } else {
-                        alert("삭제 실패");
-                    }
-                }
-            });
-        }
-
-    }
+    // $(function() {
+    //     var chkObj = document.getElementById("RowCheck");
+    //     var rowCnt = chkObj.length;
+    //
+    //     $("input[name='allCheck']").click(function() {
+    //         var chk_listArr = $("input[name='RowCheck']");
+    //         for (var i = 0; i < chk_listArr.length; i++) {
+    //             chk_listArr[i].checked = this.checked;
+    //         }
+    //     });
+    //     $("input[name='RowCheck]").click(function () {
+    //         if ($("input[name='RowCheck']:checked").length == rowCnt) {
+    //             $("input[name='allCheck']")[0].checked = true;
+    //         } else {
+    //             $("input[name='allCheck']")[0].checked = false;
+    //         }
+    //     });
+    // });
+    //
+    // function deleteValue() {
+    //     var url = "delete";
+    //     var valueArr = new Array();
+    //     var list = $("input[name='RowCheck']");
+    //     for (var i = 0; i < list.length; i++) {
+    //         if (list[i].checked) {
+    //             valueArr.push(list[i].value);
+    //         }
+    //     }
+    //     if (valueArr.length == 0) {
+    //         alert("선택된 글이 없습니다.");
+    //     } else {
+    //         var chk = confirm("정말 삭제하시겠습니까?");
+    //         $.ajax({
+    //             url: url,
+    //             type: 'POST',
+    //             traditional: true,
+    //             data: {
+    //                 valueArr: valueArr
+    //             },
+    //             success: function (jdata) {
+    //                 if (jdata == 1) {
+    //                     alert("삭제 성공");
+    //                     location.replace("list")
+    //                 } else {
+    //                     alert("삭제 실패");
+    //                 }
+    //             }
+    //         });
+    //     }
+    //
+    // }
 </script>
 </body>
 

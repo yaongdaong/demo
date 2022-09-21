@@ -17,6 +17,19 @@ public class DemoController {
         return "demo";
     }
 
+    // 로그인
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    // 회원가입
+    @GetMapping("/register")
+    public String register() {
+        return "register";
+    }
+
+    // 글쓰기
     @GetMapping("/write")
     public String write() {
         return "write";
